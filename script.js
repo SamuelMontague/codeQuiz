@@ -52,3 +52,12 @@ let questions = [
         correct : "C",
     }
 ];
+
+function createQuestion(){
+    let q = questions[runningQuestions];
+}
+
+
+
+
+start.addEventListener("click",start);
