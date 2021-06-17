@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <button id="start">Start!</button>
+        <div id="quiz" style="display: none">
+            <section id="question"></section>
+            <section id="choices">
+                <button class="selection" id="A" onclick="checkAnswer('A')"></button>
+                <button class="selection" id="B" onclick="checkAnswer('B')"></button>
+                <button class="selection" id="C" onclick="checkAnswer('C')"></button>
+                <button class="selection" id="D" onclick="checkAnswer('D')"></button>
+            </section>
+            <section id="timer">
+                <div id="counter"></div>
+                <div id="timeGauge"></div>
+            </section>
+
+        </div>
+        <section id="scoreContainer" style="display: none"></section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
