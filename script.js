@@ -1,63 +1,139 @@
-const start = document.getElementsById("start");
-const quiz = document.getElementsById("quiz");
-const question = document.getElementsById("question");
-const A = document.getElementsById("A");
-const B = document.getElementsById("B");
-const C = document.getElementsById("C");
-const D = document.getElementsById("D");
-const counter = document.getElementsById("counter");
-const timeGauge = document.getElementsById("timeGauge");
-const scoreContainer = document.getElementsById("scoreContainer");
+const startButton = document.getElementById("start");
+const question = document.getElementById("question");
+const progressText = document.querySelector('.progressText');
+const scoreContainer = document.getElementById("scoreContainer");
+const choices = Array.from(document.querySelectorAll('.selection'))
+var secondsLeft = 75;
 
+let currentQuestion = {}
+let acceptingAnswers = true
+let score = 0
+let questionCounter = 0
+let availableQuestions = []
 
 let questions = [
 
     {
         question: "What color is the sky?",
 
-        choiceA : "blue",
+        choice1 : "blue",
 
-        choiceB : "red",
+        choice2 : "red",
 
-        choiceC : "green",
+        choice3 : "green",
 
-        choiceD : "yellow",
+        choice4 : "yellow",
 
-        correct : "A",
+        correct : 1,
     },{
 
-        question: "What color is the grass?",
+        question: "What color is grass?",
 
-        choiceA : "purple",
+        choice1 : "purple",
 
-        choiceB : "green",
+        choice2 : "green",
 
-        choiceC : "yellow",
+        choice3 : "yellow",
 
-        choiceD : "black",
+        choice4 : "black",
 
-        correct : "B",
+        correct : 2,
     },{
 
         question: "Which one of these is not a primary color",
 
-        choiceA : "yellow",
+        choice1 : "yellow",
 
-        choiceB : "blue",
+        choice2 : "blue",
 
-        choiceC : "green",
+        choice3 : "green",
 
-        choiceD : "red",
+        choice4 : "red",
 
-        correct : "C",
+        correct : 3,
     }
 ];
 
-function createQuestion(){
-    let q = questions[runningQuestions];
+const Score_Points = 100
+const max_Questions = 3
+
+startGame = function() {
+    currentQuestion = 0
+    score = 0
+    availableQuestions = [...questions]
+    getNewQuestion()
 }
 
+getNewQuestion = function() {
+    if (availableQuestions.length === 0 || questionCounter > max_Questions){
+    localStorage.setItem('mostRecentScore', score)
+
+    return window.location.assign('/end.html')
+    }
+    questionCounter++
+    progressText.innerText= "Question ${questionCounter} of ${max_Questions}"
+
+    const questionsIndex = Math.floor(Math.random() * availableQuestions.length)
+    currentQuestion = availableQuestions[questionsIndex]
+    question.innerText = currentQuestion.question
+
+    choices.forEach(choice = function() {
+        const number = choice.dataset['number']
+        choice.innerText = currentQuestion['choice' + number]
+    })
+    
+    availableQuestions.splice(questionsIndex, 1)
+
+    acceptingAnswers= true
+}
+
+choices.forEach(choice = function() {
+    
+    choice.addEventListener('click', event = function() {
+        if(!acceptingAnswers) return
+
+        acceptingAnswers = false 
+        const selectedChoice = Event.target 
+        const selectedAnswer = selectedChoice.dataset['number']
+
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' :
+        'incorrect'
+
+        if(classToApply === 'correct') {
+            incrementScore(Score_Points)
+        
+        }
+        selectedChoice.parentElement.classList.add(classToApply)
+
+        setTimeout( function() {
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestion()
+        
+        },1000)
+    })
+})
+
+incrementScore = num = function(){
+    score +=num 
+    setCounterText.innerText = score
+}
+// function displayQuestion(currentQuestion){
+//     question.innerText = currentQuestion.question;
+//     A.innerText = currentQuestion.A;
+//     B.innerText = currentQuestion.B;
+//     C.innerText = currentQuestion.C;
+//     D.innerText = currentQuestion.D;
+// }
+// displayQuestion(questions[0]);
+ 
 
 
 
-start.addEventListener("click",start);
+// function getAnswer(currentQuestion, userSelection){
+//     currentQuestion.correct == userSelection
+// }
+
+
+startButton.addEventListener("click", function(){
+    console.log("button is clicked")
+})
