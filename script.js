@@ -23,7 +23,7 @@ let questions = [
 
         D : "yellow",
 
-        correct : A,
+        correct : [1],
     },{
 
         question: "What color is grass?",
@@ -36,7 +36,7 @@ let questions = [
 
         D : "black",
 
-        correct : B,
+        correct : [2],
     },{
 
         question: "Which one of these is not a primary color",
@@ -49,7 +49,7 @@ let questions = [
 
         D : "red",
 
-        correct :C,
+        correct : [3],
     }
 ];
 
@@ -96,30 +96,36 @@ function displayQuestion(currentQuestion){
 displayQuestion(questions[0]);
 
 function getNewQuestion() {
-    questions(function(){
-        for(let i = 0; i<4; i++) {
-            console.log(i)
+    if (questionCounter < questions.length){
+        question.innerText = questions[questionCounter].title;
+        choices.textContent = "";
+    }
+        for(let i = 0; i< questions[questionCounter]; i++) {
+            let el = document.createElement("button");
+            el.innerText = questions[questionCounter].multichoice[i];
+            el.setAttribute("data-id", i);
+            el.addEventListener("click", function (event){
+                event.stopPropagation();
+
+                if (el.innerText === questions[questionCounter].answer){
+                    score += secondsLeft;
+                } else {
+                    score -= 10;
+                    secondsLeft = secondsLeft -15
+                }
+                question.innerHTML = "";
+
+                if (questionCounter === questions.length){
+                    return;
+                } else {
+                    questionCounter++;
+                    getNewQuestion();
+                }
+            });
+            choices.append(el);
         }
-    })
 }
 
-
-// getNewQuestion = function() {
-//     if (availableQuestions.length === 0 || questionCounter > max_Questions){
-//     localStorage.setItem('mostRecentScore', score)
-//     }
-//     questionCounter++
-
-//     choices.forEach(function(choice) {
-//         const number = choice.dataset['number']
-//         choice.innerText = currentQuestion['choice' + number]
-//         console.log(choice);
-//     })
-    
-//     availableQuestions.splice(questionsIndex, 1)
-
-//     acceptingAnswers= true
-// }
 
 choices.forEach( function(choice) {
 

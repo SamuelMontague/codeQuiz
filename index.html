@@ -11,9 +11,9 @@
     <div id="container">
         <button id="start" onclick="startTimer(), revealQuiz()">Start!</button>
         <div id="quiz" style="display: none" >
-            <div>
-            <section id="question"></section>
-            <section id="choices" onclick="getNewQuestion()" >
+            <div id="quiz-container">
+            <section id="question" onclick="getNewQuestion()"></section>
+            <section id="choices">
                 <button class="selection" id="A" ></button>
                 <button class="selection" id="B" ></button>
                 <button class="selection" id="C" ></button>
