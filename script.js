@@ -1,9 +1,8 @@
 const startButton = document.getElementById("start");
 const question = document.getElementById("question");
-const progressText = document.querySelector('.progressText');
 const scoreContainer = document.getElementById("scoreContainer");
 const choices = Array.from(document.querySelectorAll('.selection'))
-var secondsLeft = 75;
+var secondsLeft = 100;
 
 let currentQuestion = {}
 let acceptingAnswers = true
@@ -16,43 +15,46 @@ let questions = [
     {
         question: "What color is the sky?",
 
-        choice1 : "blue",
+        A : "blue",
 
-        choice2 : "red",
+        B : "red",
 
-        choice3 : "green",
+        C : "green",
 
-        choice4 : "yellow",
+        D : "yellow",
 
-        correct : 1,
+        correct : A,
     },{
 
         question: "What color is grass?",
 
-        choice1 : "purple",
+        A : "purple",
 
-        choice2 : "green",
+        B : "green",
 
-        choice3 : "yellow",
+        C : "yellow",
 
-        choice4 : "black",
+        D : "black",
 
-        correct : 2,
+        correct : B,
     },{
 
         question: "Which one of these is not a primary color",
 
-        choice1 : "yellow",
+        A : "yellow",
 
-        choice2 : "blue",
+        B : "blue",
 
-        choice3 : "green",
+        C : "green",
 
-        choice4 : "red",
+        D : "red",
 
-        correct : 3,
+        correct :C,
     }
 ];
+
+
+
 
 const Score_Points = 100
 const max_Questions = 3
@@ -64,36 +66,68 @@ startGame = function() {
     getNewQuestion()
 }
 
-getNewQuestion = function() {
-    if (availableQuestions.length === 0 || questionCounter > max_Questions){
-    localStorage.setItem('mostRecentScore', score)
-
-    return window.location.assign('/end.html')
-    }
-    questionCounter++
-    progressText.innerText= "Question ${questionCounter} of ${max_Questions}"
-
-    const questionsIndex = Math.floor(Math.random() * availableQuestions.length)
-    currentQuestion = availableQuestions[questionsIndex]
-    question.innerText = currentQuestion.question
-
-    choices.forEach(choice = function() {
-        const number = choice.dataset['number']
-        choice.innerText = currentQuestion['choice' + number]
-    })
-    
-    availableQuestions.splice(questionsIndex, 1)
-
-    acceptingAnswers= true
+function startTimer() {
+    setInterval(function(){
+        secondsLeft--;
+        if (secondsLeft > 0) {
+            time = document.getElementById("timer");
+            time.innerHTML = secondsLeft;
+        }
+        if (secondsLeft === 0) {
+            alert("sorry, out of time");
+            clearInterval(secondsLeft);
+        }
+    },1000);
+    console.log("timer has started")
+}
+function revealQuiz(){
+    document.getElementById('quiz').style.display = "block";
 }
 
-choices.forEach(choice = function() {
+
+function displayQuestion(currentQuestion){
+    question.innerText = currentQuestion.question;
+    A.innerText = currentQuestion.A;
+    B.innerText = currentQuestion.B;
+    C.innerText = currentQuestion.C;
+    D.innerText = currentQuestion.D;
     
-    choice.addEventListener('click', event = function() {
+}
+displayQuestion(questions[0]);
+
+function getNewQuestion() {
+    questions(function(){
+        for(let i = 0; i<4; i++) {
+            console.log(i)
+        }
+    })
+}
+
+
+// getNewQuestion = function() {
+//     if (availableQuestions.length === 0 || questionCounter > max_Questions){
+//     localStorage.setItem('mostRecentScore', score)
+//     }
+//     questionCounter++
+
+//     choices.forEach(function(choice) {
+//         const number = choice.dataset['number']
+//         choice.innerText = currentQuestion['choice' + number]
+//         console.log(choice);
+//     })
+    
+//     availableQuestions.splice(questionsIndex, 1)
+
+//     acceptingAnswers= true
+// }
+
+choices.forEach( function(choice) {
+
+    choice.addEventListener('click',function(event) {
         if(!acceptingAnswers) return
 
         acceptingAnswers = false 
-        const selectedChoice = Event.target 
+        const selectedChoice = event.target 
         const selectedAnswer = selectedChoice.dataset['number']
 
         let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' :
@@ -105,18 +139,19 @@ choices.forEach(choice = function() {
         }
         selectedChoice.parentElement.classList.add(classToApply)
 
-        setTimeout( function() {
-            selectedChoice.parentElement.classList.remove(classToApply)
-            getNewQuestion()
+        // setTimeout( function() {
+        //     selectedChoice.parentElement.classList.remove(classToApply)
+        //     getNewQuestion()
         
-        },1000)
+        // },1000)
     })
-})
+}) 
 
-incrementScore = num = function(){
+incrementScore = function(num){
     score +=num 
-    setCounterText.innerText = score
+    //setCounterText.innerText = score
 }
+
 // function displayQuestion(currentQuestion){
 //     question.innerText = currentQuestion.question;
 //     A.innerText = currentQuestion.A;

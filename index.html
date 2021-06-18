@@ -9,15 +9,17 @@
 </head>
 <body>
     <div id="container">
-        <button id="start">Start!</button>
-        <div id="quiz" >
+        <button id="start" onclick="startTimer(), revealQuiz()">Start!</button>
+        <div id="quiz" style="display: none" >
+            <div>
             <section id="question"></section>
-            <section id="choices">
+            <section id="choices" onclick="getNewQuestion()" >
                 <button class="selection" id="A" ></button>
                 <button class="selection" id="B" ></button>
                 <button class="selection" id="C" ></button>
                 <button class="selection" id="D" ></button>
             </section>
+            </div>
             <section id="timer">
                 <div id="counter"></div>
                 <div id="timeGauge"></div>
