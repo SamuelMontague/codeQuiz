@@ -1,16 +1,37 @@
 # hw4-quiz
 
 
-created a simple quiz using HTML, CSS, and Javascript
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)]
+  
+# Description
 
-When the user clicks START
-Then the first question is Displayed
-When the first question is displayed
-Then the countdown timer starts
-When the user selects the anser
-Then the quiz displays the next Question (worked with my tutor to get this up and running, but isn't working anymore)
+This front-end application creates a quiz about coding language that we have learned in the bootcamp so far!
 
+![screenshot](./images/pwss.PNG)    
+# Table of Contents
 
+* [Usage](#usage)
 
-I was unable to reach the rest of the requirements due to time restraints.
-This is my busiest week of the cohort and pulled 2 "all-nighters" to try and finish.
+* [License](#license)
+
+* [Contributing](#contributing)
+
+* [Questions](#questions)
+    
+ 
+
+# Usage
+
+The user can take the quiz to achieve a high score.
+
+# License
+
+This application is covered by the MIT license.
+    
+# Contributing
+
+Contributors: Samuel Montague
+
+# Questions
+
+If you have any questions about the repo, open an issue or contact me directly at SamuelpMontague@gmail.com. You can find more of my work at (https://github.com/SamuelMontague/).
